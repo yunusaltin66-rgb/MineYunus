@@ -9,21 +9,21 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --rose:#C4748A;
-  --rose-l:#E8B4C0;
-  --rose-ll:#F5DCE4;
-  --rose-lll:#FDF0F4;
-  --gold:#C9A878;
-  --gold-l:#E8D4A8;
-  --gold-d:#8A6840;
-  --cream:#FDFAF6;
-  --cream-d:#F2E8DC;
-  --blush:#FAF0F4;
-  --text:#5C3A48;
-  --text-l:#8A5868;
-  --text-ll:#B08898;
+  --rose:#9E7B6B;
+  --rose-l:#C8A898;
+  --rose-ll:#E8D8D0;
+  --rose-lll:#F5EDE8;
+  --gold:#B8965A;
+  --gold-l:#D4BF8A;
+  --gold-d:#7A6038;
+  --cream:#FDFBF7;
+  --cream-d:#F0EAE0;
+  --blush:#F8F4EE;
+  --text:#3A2E28;
+  --text-l:#6A5448;
+  --text-ll:#9A8878;
 }
-html,body{width:100%;min-height:100vh;background:#F8EEF2;overflow-x:hidden;}
+html,body{width:100%;min-height:100vh;background:#F5EFE6;overflow-x:hidden;}
 
 /* ========== FLOATING PETALS ========== */
 #particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
@@ -38,7 +38,7 @@ html,body{width:100%;min-height:100vh;background:#F8EEF2;overflow-x:hidden;}
 /* ========== ENVELOPE SCREEN ========== */
 #env-screen{
   position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:radial-gradient(ellipse at 50% 40%, #FBF0F5 0%, #F0E0EC 50%, #E8D4E4 100%);
+  background:radial-gradient(ellipse at 50% 40%, #FDFAF5 0%, #F0E8DC 50%, #E0D4C4 100%);
   z-index:100;transition:opacity 1s ease;
 }
 #env-screen.hiding{opacity:0;pointer-events:none;}
@@ -49,6 +49,12 @@ html,body{width:100%;min-height:100vh;background:#F8EEF2;overflow-x:hidden;}
 
 .env-scene{width:min(92vw,420px);position:relative;cursor:pointer;}
 .env-scene:active{transform:scale(0.99);}
+/* Envelope flap animation */
+#env-flap{transform-origin:210px 1px;transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);}
+.env-scene.opening #env-flap{transform:rotateX(180deg);}
+.env-scene.opening #env-seal{opacity:0;transition:opacity 0.3s;}
+.env-svg{transform-style:preserve-3d;}
+
 .env-hint{
   margin-top:20px;font-family:'Montserrat',sans-serif;
   font-size:10px;letter-spacing:4px;color:var(--rose);
@@ -73,7 +79,7 @@ html,body{width:100%;min-height:100vh;background:#F8EEF2;overflow-x:hidden;}
 .card-content{position:relative;z-index:2;max-width:520px;margin:0 auto;padding-bottom:90px;}
 
 /* Top/bottom rose bars */
-.rose-bar{height:6px;background:linear-gradient(90deg,#E8B4C0,#F5DCE4,#C4748A,#F5DCE4,#E8B4C0);}
+.rose-bar{height:6px;background:linear-gradient(90deg,#C8A898,#E8D8D0,#B8965A,#E8D8D0,#C8A898);}
 
 /* ---- PHOTO ---- */
 .photo-section{display:flex;justify-content:center;padding:30px 20px 0;}
@@ -112,10 +118,10 @@ html,body{width:100%;min-height:100vh;background:#F8EEF2;overflow-x:hidden;}
 /* ---- DATE BOX ---- */
 .date-box{
   margin:14px 20px;
-  background:linear-gradient(135deg,#FDF5F8,#F8E8EE);
-  border:1px solid var(--rose-l);border-radius:3px;
+  background:linear-gradient(135deg,#FDFAF4,#F0E8D8);
+  border:1px solid var(--gold-l);border-radius:3px;
   padding:18px 20px 16px;text-align:center;
-  box-shadow:inset 0 0 24px rgba(196,116,138,0.07),0 4px 18px rgba(196,116,138,0.1);
+  box-shadow:inset 0 0 24px rgba(184,150,90,0.07),0 4px 18px rgba(184,150,90,0.1);
   position:relative;
 }
 .date-box::before,.date-box::after{content:'✦';position:absolute;top:50%;transform:translateY(-50%);color:var(--rose-l);font-size:12px;opacity:0.6;}
@@ -134,7 +140,7 @@ html,body{width:100%;min-height:100vh;background:#F8EEF2;overflow-x:hidden;}
 .cd-lbl-top{text-align:center;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:4px;color:var(--rose);text-transform:uppercase;margin-bottom:12px;opacity:0.75;}
 .cd-boxes{display:flex;gap:8px;justify-content:center;}
 .cd-box{flex:1;max-width:80px;
-  background:linear-gradient(160deg,#7A3850,#4A1830);
+  background:linear-gradient(160deg,#4A3828,#2C1E14);
   border:1px solid var(--rose-l);border-radius:3px;
   padding:clamp(10px,3vw,14px) 4px 8px;text-align:center;
   box-shadow:0 4px 14px rgba(0,0,0,0.15);}
@@ -144,7 +150,7 @@ html,body{width:100%;min-height:100vh;background:#F8EEF2;overflow-x:hidden;}
 /* ---- BUTTONS ---- */
 .btns{display:flex;gap:10px;padding:20px 20px 0;justify-content:center;flex-wrap:wrap;}
 .btn-rose{flex:1;min-width:130px;max-width:200px;
-  background:linear-gradient(135deg,var(--rose),#A05070);color:#FFF5F8;
+  background:linear-gradient(135deg,#9E7B6B,#6A4E3C);color:#FDF8F0;
   border:none;border-radius:30px;padding:14px 16px;font-family:'Montserrat',sans-serif;
   font-size:10px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;
   transition:all 0.25s;text-decoration:none;display:inline-block;text-align:center;
@@ -179,6 +185,8 @@ html,body{width:100%;min-height:100vh;background:#F8EEF2;overflow-x:hidden;}
 .venue-photo-frame img{
   width:100%;display:block;
   border-radius:6px;
+  max-height:180px;
+  object-fit:cover;
 }
 /* Floral corners on venue photo */
 .venue-floral{position:absolute;pointer-events:none;z-index:3;width:80px;height:80px;}
@@ -195,8 +203,8 @@ html,body{width:100%;min-height:100vh;background:#F8EEF2;overflow-x:hidden;}
 /* ---- MUSIC BAR ---- */
 #music-bar{
   position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
-  background:linear-gradient(135deg,rgba(90,30,50,0.97),rgba(50,10,28,0.99));
-  border:1px solid var(--rose-l);border-radius:40px;
+  background:linear-gradient(135deg,rgba(50,38,28,0.97),rgba(28,20,12,0.99));
+  border:1px solid var(--gold-l);border-radius:40px;
   padding:12px 22px;display:none;align-items:center;gap:12px;
   z-index:50;box-shadow:0 8px 30px rgba(0,0,0,0.35);
   min-width:240px;max-width:92vw;justify-content:space-between;
@@ -344,7 +352,7 @@ html,body{width:100%;min-height:100vh;background:#F8EEF2;overflow-x:hidden;}
 </div>
 
 <!-- ========== ENVELOPE SCREEN ========== -->
-<div id="env-screen">
+<div id="env-screen" onclick="openEnvelope()">
   <div id="sparkles-wrap" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
 
   <div class="env-scene" id="env-scene" onclick="openEnvelope()">
