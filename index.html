@@ -41,7 +41,7 @@ html,body{width:100%;min-height:100vh;background:#F8EEF2;overflow-x:hidden;}
   background:radial-gradient(ellipse at 50% 40%, #FBF0F5 0%, #F0E0EC 50%, #E8D4E4 100%);
   z-index:100;transition:opacity 1s ease;
 }
-#env-screen.hiding{opacity:0;pointer-events:none;}
+#env-screen.hiding{opacity:0;pointer-events:none;display:none;}
 
 /* Soft sparkles in background */
 .sparkle{position:absolute;pointer-events:none;animation:sparkleAnim var(--sd,3s) var(--sdelay,0s) infinite ease-in-out;opacity:0;}
@@ -344,7 +344,7 @@ html,body{width:100%;min-height:100vh;background:#F8EEF2;overflow-x:hidden;}
 </div>
 
 <!-- ========== ENVELOPE SCREEN ========== -->
-<div id="env-screen">
+<div id="env-screen" onclick="openEnvelope()">
   <div id="sparkles-wrap" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
 
   <div class="env-scene" id="env-scene" onclick="openEnvelope()">
@@ -744,9 +744,7 @@ function openEnvelope(){
     scr.classList.add('hiding');
     setTimeout(function(){
       scr.style.display='none';
-var card = document.getElementById('main-card');
-card.style.display = 'block';
-setTimeout(function(){ card.classList.add('visible'); }, 20);
+      document.getElementById('main-card').classList.add('visible');
       startCountdown();
       mbar.style.display='flex';
       musicOn=true;
