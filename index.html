@@ -744,7 +744,9 @@ function openEnvelope(){
     scr.classList.add('hiding');
     setTimeout(function(){
       scr.style.display='none';
-      document.getElementById('main-card').classList.add('visible');
+var card = document.getElementById('main-card');
+card.style.display = 'block';
+setTimeout(function(){ card.classList.add('visible'); }, 20);
       startCountdown();
       mbar.style.display='flex';
       musicOn=true;
