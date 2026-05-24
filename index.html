@@ -329,6 +329,39 @@ html,body{
   .card-content{max-width:100%;padding-left:10px;padding-right:10px;}
 }
 
+
+/* ---- SCROLL INDICATOR ---- */
+#scroll-hint-left, #scroll-hint-right{
+  position:fixed;top:36px;
+  z-index:9999;display:none;opacity:0;
+  flex-direction:column;align-items:center;gap:8px;
+  pointer-events:none;
+  transition:opacity 0.8s ease;
+}
+#scroll-hint-left{ left:20px; }
+#scroll-hint-right{ right:20px; }
+#scroll-hint-left.hidden, #scroll-hint-right.hidden{ opacity:0!important; transition:opacity 0.4s ease; }
+.scroll-text{
+  font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:3.5px;
+  color:#7A5C38;text-transform:uppercase;font-weight:400;
+  text-shadow:0 1px 12px rgba(255,255,255,1), 0 0 24px rgba(255,255,255,1);
+  writing-mode:vertical-rl;text-orientation:mixed;
+}
+.scroll-arrow span{
+  display:block;width:18px;height:18px;
+  border-right:2.5px solid #8A6840;border-bottom:2.5px solid #8A6840;
+  transform:rotate(45deg);margin:2px auto;
+  filter:drop-shadow(0 1px 6px rgba(255,255,255,1));
+}
+.scroll-arrow span:nth-child(1){animation:arrowPulse 1.4s ease-in-out infinite 0s;}
+.scroll-arrow span:nth-child(2){animation:arrowPulse 1.4s ease-in-out infinite 0.2s;}
+.scroll-arrow span:nth-child(3){animation:arrowPulse 1.4s ease-in-out infinite 0.4s;}
+@keyframes arrowPulse{
+  0%,100%{opacity:0.2;transform:rotate(45deg) translate(0,0);}
+  50%{opacity:1;transform:rotate(45deg) translate(3px,3px);}
+}
+  50%{opacity:1;transform:rotate(45deg) translate(2px,2px);}
+}
 </style>
 </head>
 <body>
@@ -868,6 +901,13 @@ window.openEnvelope = function(){
   setTimeout(function(){
     if(scr) scr.style.display='none';
     if(card){ card.style.display='block'; setTimeout(function(){ card.classList.add('visible'); }, 20); }
+    setTimeout(function(){
+      var shl=document.getElementById('scroll-hint-left');
+      var shr=document.getElementById('scroll-hint-right');
+      if(shl){ shl.style.display='flex'; shl.style.opacity='1'; }
+      if(shr){ shr.style.display='flex'; shr.style.opacity='1'; }
+    }, 600);
+
     startCountdown();
     if(mbar){ mbar.style.display='flex'; }
     musicOn = true;
@@ -917,7 +957,36 @@ document.addEventListener('visibilitychange', function(){
 });
 window.addEventListener('pagehide', function(){ if(audio) audio.pause(); });
 
+
+
 })();
 </script>
+
+
+<div id="scroll-hint-left">
+  <div class="scroll-arrow"><span></span><span></span><span></span></div>
+  <span class="scroll-text">Kaydır</span>
+</div>
+<div id="scroll-hint-right">
+  <div class="scroll-arrow"><span></span><span></span><span></span></div>
+  <span class="scroll-text">Kaydır</span>
+</div>
+
+// ---- SCROLL HINT ----
+(function(){
+  function hideScrollHints(){
+    var shl=document.getElementById('scroll-hint-left');
+    var shr=document.getElementById('scroll-hint-right');
+    if(shl && shl.style.display!='none'){ shl.style.opacity='0'; setTimeout(function(){ shl.style.display='none'; },400); }
+    if(shr && shr.style.display!='none'){ shr.style.opacity='0'; setTimeout(function(){ shr.style.display='none'; },400); }
+  }
+  function checkScroll(){
+    var scrolled = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if(scrolled > 80) hideScrollHints();
+  }
+  window.addEventListener('scroll', checkScroll, {passive:true});
+  document.addEventListener('scroll', checkScroll, {passive:true});
+  document.addEventListener('touchmove', checkScroll, {passive:true});
+})();
 </body>
 </html>
