@@ -141,7 +141,7 @@ html,body{width:100%;min-height:100vh;background:#F5EFE6;overflow-x:hidden;}
   box-shadow:inset 0 0 24px rgba(184,150,90,0.07),0 4px 18px rgba(184,150,90,0.1);
   position:relative;
 }
-.date-box::before,.date-box::after{content:'✦';position:absolute;top:50%;transform:translateY(-50%);color:var(--rose-l);font-size:12px;opacity:0.6;}
+.date-box::before,.date-box::after{content:'✦';position:absolute;top:50%;transform:translateY(-50%);color:var(--rose-l);font-size:11px;opacity:0.6;}
 .date-box::before{left:12px;}.date-box::after{right:12px;}
 .date-main{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,28px);font-weight:600;color:var(--text);}
 .date-day{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:4px;color:var(--rose);text-transform:uppercase;margin-top:3px;display:block;}
@@ -342,8 +342,8 @@ html,body{
 #scroll-hint-right{ right:20px; }
 #scroll-hint-left.hidden, #scroll-hint-right.hidden{ opacity:0!important; transition:opacity 0.4s ease; }
 .scroll-text{
-  font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:3.5px;
-  color:#7A5C38;text-transform:uppercase;font-weight:400;
+  font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:3.5px;
+  color:#9A8060;text-transform:uppercase;font-weight:400;
   text-shadow:0 1px 12px rgba(255,255,255,1), 0 0 24px rgba(255,255,255,1);
   writing-mode:vertical-rl;text-orientation:mixed;
 }
@@ -962,7 +962,6 @@ window.addEventListener('pagehide', function(){ if(audio) audio.pause(); });
 })();
 </script>
 
-
 <div id="scroll-hint-left">
   <div class="scroll-arrow"><span></span><span></span><span></span></div>
   <span class="scroll-text">Kaydır</span>
@@ -972,21 +971,21 @@ window.addEventListener('pagehide', function(){ if(audio) audio.pause(); });
   <span class="scroll-text">Kaydır</span>
 </div>
 
-// ---- SCROLL HINT ----
+<script>
 (function(){
   function hideScrollHints(){
     var shl=document.getElementById('scroll-hint-left');
     var shr=document.getElementById('scroll-hint-right');
-    if(shl && shl.style.display!='none'){ shl.style.opacity='0'; setTimeout(function(){ shl.style.display='none'; },400); }
-    if(shr && shr.style.display!='none'){ shr.style.opacity='0'; setTimeout(function(){ shr.style.display='none'; },400); }
+    if(shl){ shl.style.transition='opacity 0.4s'; shl.style.opacity='0'; setTimeout(function(){ shl.style.display='none'; },400); }
+    if(shr){ shr.style.transition='opacity 0.4s'; shr.style.opacity='0'; setTimeout(function(){ shr.style.display='none'; },400); }
   }
   function checkScroll(){
-    var scrolled = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    if(scrolled > 80) hideScrollHints();
+    var s=window.scrollY||window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0;
+    if(s>80) hideScrollHints();
   }
-  window.addEventListener('scroll', checkScroll, {passive:true});
-  document.addEventListener('scroll', checkScroll, {passive:true});
-  document.addEventListener('touchmove', checkScroll, {passive:true});
+  window.addEventListener('scroll',checkScroll,{passive:true});
+  document.addEventListener('touchmove',checkScroll,{passive:true});
 })();
+</script>
+
 </body>
-</html>
